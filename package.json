@@ -1,0 +1,38 @@
+{
+  "name": "aws-apigateway-importer",
+  "version": "0.5.1",
+  "description": "API Gateway Swagger Importer",
+  "main": "lib/index.js",
+  "scripts": {
+    "postversion": "git push && git push --tags"
+  },
+  "author": "Jay Morrow <jay.m.morrow@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "async": "^1.5.2",
+    "aws-sdk": "^2.2.30",
+    "mocha": "^2.3.4"
+  },
+  "dependencies": {
+    "extend": "^3.0.0"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaymorrow/node-aws-apigateway-importer.git"
+  },
+  "keywords": [
+    "aws",
+    "apigateway",
+    "api",
+    "gateway",
+    "swagger",
+    "importer"
+  ],
+  "bugs": {
+    "url": "https://github.com/jaymorrow/node-aws-apigateway-importer/issues"
+  },
+  "homepage": "https://github.com/jaymorrow/node-aws-apigateway-importer#readme"
+}
