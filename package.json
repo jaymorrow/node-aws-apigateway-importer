@@ -1,6 +1,6 @@
 {
   "name": "aws-apigateway-importer",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "API Gateway Swagger Importer",
   "main": "lib/index.js",
   "scripts": {
