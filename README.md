@@ -30,19 +30,21 @@ If at anytime the deployment is unsuccessful due to an error the partially creat
 
 ## Methods
 
-### new constructor(path)
+### new constructor(path[, options])
 
 Reads the swagger json file and prepares the contents for API creation.
 
 #### Arguments
-1. __path__: Path to your Swagger file
+1. __path__ (_String_): Path to your Swagger file
+2. [__options__] \(_Object_): Configuration options for the AWS ApiGateway service.
+    * region: 'us-east-1'
 
 ### create(callback)
 
 Creates the API, but does not deploy it to a server. The API name is pulled from `info.title` in the swagger.json file.
 
 #### Arguments
-1. __callback(err, result)__: Function to run after creation. 
+1. __callback(err, result)__ (_Function_): Run after creation. 
 
 ### deploy(callback)
 
@@ -51,7 +53,7 @@ Deploys the API so that it is reachable via the internet. the `create` method mu
 The Stage name for the api is pulled from the `basePath` property of the swagger.json file and the leading `/` is removed.
 
 #### Arguments
-1. __callback(err, result)__: Function to run after deployment.
+1. __callback(err, result)__ (_Function_): Run after deployment.
 
 ## ToDo
 - [ ] Add unit tests
