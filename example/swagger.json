@@ -1,155 +1,23 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2016-01-18T16:06:39Z",
-    "title": "ExampleAPI"
+    "title": "api-gateway-example"
   },
   "host": "",
-  "basePath": "/development",
+  "basePath": "/basepath",
   "schemes": [
     "https"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            },
-            "headers": {}
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseTemplates": {
-                "application/json": "__passthrough__"
-              }
-            }
-          },
-          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{ROLE_NAME}}",
-          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION_NAME}}/invocations",
-          "httpMethod": "POST",
-          "type": "aws"
-        }
-      }
-    },
-    "/user": {
-      "post": {
+    "/photos": {
+      "delete": {
         "consumes": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "foo",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "Version",
-            "in": "header",
-            "required": false,
-            "type": "string"
-          },
-          {
             "name": "Authorization",
             "in": "header",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "bar",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "Empty",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "201 response",
-            "headers": {}
-          },
-          "400": {
-            "description": "400 response",
-            "headers": {}
-          },
-          "409": {
-            "description": "409 response",
-            "headers": {}
-          },
-          "500": {
-            "description": "500 response",
-            "headers": {}
-          }
-        },
-        "security": [
-          {
-            "sigv4": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "409:.*": {
-              "statusCode": "409"
-            },
-            "default": {
-              "statusCode": "201"
-            },
-            "400:.*": {
-              "statusCode": "400"
-            },
-            "500:.*": {
-              "statusCode": "500"
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\n    \"Body\": $input.json('$')\n}"
-          },
-          "uri": "https://example.com",
-          "httpMethod": "POST",
-          "cacheNamespace": "ypvpvp",
-          "cacheKeyParameters": [
-            "method.input.params.foo",
-            "method.input.params.Version"
-          ],
-          "type": "http"
-        }
-      }
-    },
-    "/user/{id}": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
             "required": true,
             "type": "string"
           }
@@ -157,14 +25,7 @@
         "responses": {
           "200": {
             "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            },
-            "headers": {
-              "TTL": {
-                "type": "string"
-              }
-            }
+            "headers": {}
           },
           "400": {
             "description": "400 response",
@@ -182,28 +43,35 @@
         "x-amazon-apigateway-integration": {
           "responses": {
             "default": {
-              "statusCode": "200",
-              "responseTemplates": {
-                "application/json": "__passthrough__"
-              }
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
             }
           },
           "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
           },
-          "type": "mock"
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
         }
-      }
-    },
-    "/user/{id}/things": {
+      },
       "get": {
-        "produces": [
+        "consumes": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
+            "name": "Authorization",
+            "in": "header",
             "required": true,
             "type": "string"
           }
@@ -211,45 +79,1478 @@
         "responses": {
           "200": {
             "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            },
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
             "headers": {}
           }
         },
         "x-amazon-apigateway-integration": {
           "responses": {
             "default": {
-              "statusCode": "200",
-              "responseTemplates": {
-                "application/json": "__passthrough__"
-              }
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
             }
           },
           "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
           },
-          "type": "mock"
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
         }
       }
-    }
-  },
-  "securityDefinitions": {
-    "api_key": {
-      "type": "apiKey",
-      "name": "x-api-key",
-      "in": "header"
     },
-    "sigv4": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "x-amazon-apigateway-authtype": "awsSigv4"
-    }
-  },
-  "definitions": {
-    "Empty": {
-      "type": "object"
+    "/friends": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/news": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/goals": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/events": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/cart": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/store": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/user": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/user/{id}/friends": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/verify": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "credentials": "arn:aws:iam::{{ACCOUNT_ID}}:role/{{IAM_ROLE}}",
+          "uri": "arn:aws:apigateway:{{REGION}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{REGION}}:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
     }
   }
 }

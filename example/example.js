@@ -1,4 +1,4 @@
-var ApiImporter = require('aws-apigateway-importer');
+var ApiImporter = require('../lib');
 var importer = new ApiImporter('./swagger.json');
 
 importer.create(function (err, result) {
