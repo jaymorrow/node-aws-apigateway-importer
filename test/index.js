@@ -5,13 +5,12 @@ var ApiImporter = require('../lib');
 var swagger = require('../test-helpers/swagger.json');
 
 var ACCOUNT_ID = process.env.ACCOUNT_ID;
-console.log('ACCOUNT_ID', ACCOUNT_ID);
 var swagger = JSON.parse(JSON.stringify(swagger).replace(/{{ACCOUNT_ID}}/g, ACCOUNT_ID));
 
 describe('AWS Integration:', function () {
   this.timeout(25000);
   var importer = new ApiImporter(swagger, {
-    loglevel: 'debug'
+    loglevel: 'silent'
   });
 
   afterEach('Delete API', function (done) {
