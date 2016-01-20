@@ -38,6 +38,7 @@ Reads the swagger json file and prepares the contents for API creation.
 1. __path__ (_String_): Path to your Swagger file
 2. [__options__] \(_Object_): Configuration options for the AWS ApiGateway service.
     * loglevel (_String_): `debug`, `info`, `error`. See [Loglevel](http://pimterry.github.io/loglevel/) for more information.
+    * delay (_Number_): The time in milliseconds to wait between adding integrations and responses to resources.
     * apigateway (_Object_): Any option available on the [API Gateway constructor](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/APIGateway.html#constructor-property).
 
 ### create(callback)
