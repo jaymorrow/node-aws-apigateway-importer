@@ -8,9 +8,9 @@ var ACCOUNT_ID = process.env.ACCOUNT_ID;
 var swagger = JSON.parse(JSON.stringify(swagger).replace(/{{ACCOUNT_ID}}/g, ACCOUNT_ID));
 
 describe('AWS Integration:', function () {
-  this.timeout(25000);
+  this.timeout(30000);
   var importer = new ApiImporter(swagger, {
-    loglevel: 'silent'
+    loglevel: 'debug'
   });
 
   afterEach('Delete API', function (done) {
