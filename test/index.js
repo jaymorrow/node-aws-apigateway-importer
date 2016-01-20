@@ -8,16 +8,16 @@ var ACCOUNT_ID = process.env.ACCOUNT_ID;
 var swagger = JSON.parse(JSON.stringify(swagger).replace(/{{ACCOUNT_ID}}/g, ACCOUNT_ID));
 
 describe('AWS Integration:', function () {
-  this.timeout(30000);
-  var importer = new ApiImporter(swagger, {
-    loglevel: 'debug'
-  });
-
-  afterEach('Delete API', function (done) {
-    importer.delete(done);
-  });
-
   context('Create API', function () {
+    this.timeout(25000);
+    var importer = new ApiImporter(swagger, {
+      loglevel: 'silent'
+    });
+
+    afterEach('Delete API', function (done) {
+      importer.delete(done);
+    });
+
     it('should be successful', function (done) {
       importer.create(function (err, result) {
         if (err) {
@@ -31,6 +31,15 @@ describe('AWS Integration:', function () {
   });
 
   context('Deploy API', function () {
+    this.timeout(25000);
+    var importer = new ApiImporter(swagger, {
+      loglevel: 'silent'
+    });
+
+    afterEach('Delete API', function (done) {
+      importer.delete(done);
+    });
+
     it('should be successful', function (done) {
       importer.create(function (err, result) {
         if (err) {
