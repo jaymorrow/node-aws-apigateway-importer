@@ -21,6 +21,10 @@ describe('AWS Integration:', function () {
   context('Create API', function () {
     it('should be successful', function (done) {
       importer.create(function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+
         assert.ok(result);
         done();
       });
@@ -30,9 +34,17 @@ describe('AWS Integration:', function () {
   context('Deploy API', function () {
     it('should be successful', function (done) {
       importer.create(function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+
         assert.ok(result);
 
         importer.deploy(function (err, data) {
+          if (err) {
+            console.log(err);
+          }
+
           assert.ok(data);
           done();
         });
