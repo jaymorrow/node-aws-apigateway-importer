@@ -11,10 +11,10 @@ var swagger = JSON.parse(JSON.stringify(swagger).replace(/{{ACCOUNT_ID}}/g, ACCO
 describe('AWS Integration:', function () {
   this.timeout(25000);
   var importer = new ApiImporter(swagger, {
-    loglevel: 'silent'
+    loglevel: 'debug'
   });
 
-  afterEach('delete api', function (done) {
+  afterEach('Delete API', function (done) {
     importer.delete(done);
   });
 
