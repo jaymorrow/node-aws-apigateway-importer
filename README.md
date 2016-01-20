@@ -1,10 +1,10 @@
 # aws-apigateway-importer
 
+[![Circle CI](https://circleci.com/gh/jaymorrow/node-aws-apigateway-importer.svg?style=shield)](https://circleci.com/gh/jaymorrow/node-aws-apigateway-importer)
+
 Not quite port of [aws-apigateway-importer](https://github.com/awslabs/aws-apigateway-importer) for Node. It's still very limited in that it will only wholesale import/delete APIs, it also will only handle [Swagger](http://swagger.io/) JSON files.
 
 ## Usage
-
-__\*\*DOES NOT CURRENTLY SUPPORT MANUUALY INCLUDING AWS CREDENTIALS. MUST BE PULLED FROM ENVIRONMENT OR `.aws` FOLDER\*\*__
 
 See the _example_ folder included in the repo for the swagger.json file.
 
@@ -37,7 +37,9 @@ Reads the swagger json file and prepares the contents for API creation.
 #### Arguments
 1. __path__ (_String_): Path to your Swagger file
 2. [__options__] \(_Object_): Configuration options for the AWS ApiGateway service.
-    * region: 'us-east-1'
+    * loglevel (_String_): `debug`, `info`, `error`. See [Loglevel](http://pimterry.github.io/loglevel/) for more information.
+    * delay (_Number_): The time in milliseconds to wait between adding integrations and responses to resources.
+    * apigateway (_Object_): Any option available on the [API Gateway constructor](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/APIGateway.html#constructor-property).
 
 ### create(callback)
 
@@ -54,10 +56,4 @@ The Stage name for the api is pulled from the `basePath` property of the swagger
 
 #### Arguments
 1. __callback(err, result)__ (_Function_): Run after deployment.
-
-## ToDo
-- [ ] Add unit tests
-- [ ] Finer control of creation/deletion
-- [ ] Allow updates
-- [ ] Allow manual entry of AWS credentials
 

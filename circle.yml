@@ -1,0 +1,3 @@
+test:
+    override:
+      - npm test -- --reporter mocha-junit-reporter --reporter-options mochaFile=$CIRCLE_TEST_REPORTS/mocha/tests.xml

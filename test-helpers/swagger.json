@@ -1,0 +1,238 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api-gateway-example"
+  },
+  "host": "",
+  "basePath": "/basepath",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "409": {
+            "description": "409 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "201"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "409:.*": {
+              "statusCode": "409"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/user/{id}/friends": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {}
+          },
+          "400": {
+            "description": "400 response",
+            "headers": {}
+          },
+          "401": {
+            "description": "401 response",
+            "headers": {}
+          },
+          "500": {
+            "description": "500 response",
+            "headers": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            "400:.*": {
+              "statusCode": "400"
+            },
+            "401:.*": {
+              "statusCode": "401"
+            },
+            "500:.*": {
+              "statusCode": "500"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    }
+  }
+}

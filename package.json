@@ -4,20 +4,26 @@
   "description": "API Gateway Swagger Importer",
   "main": "lib/index.js",
   "scripts": {
+    "mocha": "mocha -G -w",
+    "test": "mocha",
     "postversion": "git push && git push --tags"
   },
   "author": "Jay Morrow <jay.m.morrow@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "async": "^1.5.2",
-    "aws-sdk": "^2.2.30",
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "mocha-junit-reporter": "^1.9.1"
   },
   "dependencies": {
-    "extend": "^3.0.0"
+    "async": "^1.5.2",
+    "aws-sdk": "^2.2.30",
+    "extend": "^3.0.0",
+    "loglevel": "^1.4.0"
   },
   "directories": {
-    "example": "example"
+    "example": "example",
+    "test": "test",
+    "test-helpers": "test-helpers"
   },
   "repository": {
     "type": "git",
