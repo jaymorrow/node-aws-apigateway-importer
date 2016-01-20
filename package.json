@@ -11,7 +11,8 @@
   "author": "Jay Morrow <jay.m.morrow@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "mocha-junit-reporter": "^1.9.1"
   },
   "dependencies": {
     "async": "^1.5.2",
