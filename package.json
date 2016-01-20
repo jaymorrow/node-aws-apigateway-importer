@@ -4,7 +4,8 @@
   "description": "API Gateway Swagger Importer",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha -G",
+    "mocha": "mocha -G -w",
+    "test": "mocha",
     "postversion": "git push && git push --tags"
   },
   "author": "Jay Morrow <jay.m.morrow@gmail.com>",
