@@ -1,6 +1,7 @@
 # aws-apigateway-importer
 
 [![Circle CI](https://circleci.com/gh/jaymorrow/node-aws-apigateway-importer.svg?style=shield)](https://circleci.com/gh/jaymorrow/node-aws-apigateway-importer)
+[![Coverage Status](https://coveralls.io/repos/github/jaymorrow/aws-local-apigateway/badge.svg?branch=master)](https://coveralls.io/github/jaymorrow/aws-local-apigateway?branch=master)
 
 Not quite port of [aws-apigateway-importer](https://github.com/awslabs/aws-apigateway-importer) for Node. It's still very limited in that it will only wholesale import/delete APIs, it also will only handle [Swagger](http://swagger.io/) JSON files.
 
@@ -30,12 +31,12 @@ If at anytime the deployment is unsuccessful due to an error the partially creat
 
 ## Methods
 
-### new constructor(path[, options])
+### new constructor(doc[, options])
 
 Reads the swagger json file and prepares the contents for API creation.
 
 #### Arguments
-1. __path__ (_String_): Path to your Swagger file
+1. __doc__ (_String_ | _Object_): The path to the Swagger file of a JavaScript object that has the same format as a swagger file.
 2. [__options__] \(_Object_): Configuration options for the AWS ApiGateway service.
     * loglevel (_String_): `debug`, `info`, `error`. See [Loglevel](http://pimterry.github.io/loglevel/) for more information.
     * delay (_Number_): The time in milliseconds to wait between adding integrations and responses to resources.

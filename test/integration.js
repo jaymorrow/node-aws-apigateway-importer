@@ -8,26 +8,34 @@ var ACCOUNT_ID = process.env.ACCOUNT_ID;
 var swagger = JSON.parse(JSON.stringify(swagger).replace(/{{ACCOUNT_ID}}/g, ACCOUNT_ID));
 
 describe('AWS Integration:', function () {
-  context('Create API', function () {
-    this.timeout(25000);
+  context('Create / Delete', function () {
     var importer = new ApiImporter(swagger, {
       loglevel: 'silent'
     });
 
-    afterEach('Delete API', function (done) {
-      importer.delete(done);
-    });
+    it('should create API', function (done) {
+      this.timeout(25000);
 
-    it('should be successful', function (done) {
-      importer.create(function (err, result) {
+      importer.create(function (err, actual) {
         if (err) {
           console.log(err);
         }
 
-        assert.ok(result);
+        assert.ok(actual);
         done();
       });
     });
+
+    it('should delete API', function (done) {
+      importer.delete(function (err, actual) {
+        if (err) {
+          console.log(err);
+        }
+
+        assert.ok(actual);
+        done();
+      });
+    })
   });
 
   context('Deploy API', function () {
@@ -41,19 +49,19 @@ describe('AWS Integration:', function () {
     });
 
     it('should be successful', function (done) {
-      importer.create(function (err, result) {
+      importer.create(function (err, actual) {
         if (err) {
           console.log(err);
         }
 
-        assert.ok(result);
+        assert.ok(actual);
 
-        importer.deploy(function (err, data) {
+        importer.deploy(function (err, actual) {
           if (err) {
             console.log(err);
           }
 
-          assert.ok(data);
+          assert.ok(actual);
           done();
         });
       });
