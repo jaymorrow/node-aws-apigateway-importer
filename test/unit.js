@@ -4,7 +4,7 @@ var assert = require('assert');
 var createPaths = require('../lib/helpers/createPaths');
 var swagger = require('../test-helpers/swagger.json');
 
-describe.only('Helpers', function () {
+describe('Helpers', function () {
   context('createPaths', function () {
     var actual = createPaths(swagger.paths);
 
