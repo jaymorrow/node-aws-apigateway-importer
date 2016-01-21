@@ -2,5 +2,4 @@ test:
     override:
       - ./node_modules/.bin/istanbul cover --report lcovonly --print none -x **/test-helpers/** ./node_modules/.bin/_mocha -- -R mocha-junit-reporter --reporter-options mochaFile=$CIRCLE_TEST_REPORTS/mocha/tests.xml
     post:
-      - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - ./node_modules/.bin/codeclimate-test-reporter < ./coverage/lcov.info

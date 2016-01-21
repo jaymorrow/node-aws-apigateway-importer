@@ -12,7 +12,6 @@
   "license": "ISC",
   "devDependencies": {
     "codeclimate-test-reporter": "^0.3.0",
-    "coveralls": "^2.11.6",
     "istanbul": "^0.4.2",
     "mocha": "^2.3.4",
     "mocha-junit-reporter": "^1.9.1"

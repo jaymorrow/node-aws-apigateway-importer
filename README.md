@@ -1,7 +1,8 @@
 # aws-apigateway-importer
 
 [![Circle CI](https://circleci.com/gh/jaymorrow/node-aws-apigateway-importer.svg?style=shield)](https://circleci.com/gh/jaymorrow/node-aws-apigateway-importer)
-[![Coverage Status](https://coveralls.io/repos/github/jaymorrow/aws-local-apigateway/badge.svg?branch=master)](https://coveralls.io/github/jaymorrow/aws-local-apigateway?branch=master)
+[![Test Coverage](https://codeclimate.com/github/jaymorrow/node-aws-apigateway-importer/badges/coverage.svg)](https://codeclimate.com/github/jaymorrow/node-aws-apigateway-importer/coverage)
+[![Code Climate](https://codeclimate.com/github/jaymorrow/node-aws-apigateway-importer/badges/gpa.svg)](https://codeclimate.com/github/jaymorrow/node-aws-apigateway-importer)
 
 Not quite port of [aws-apigateway-importer](https://github.com/awslabs/aws-apigateway-importer) for Node. It's still very limited in that it will only wholesale import/delete APIs, it also will only handle [Swagger](http://swagger.io/) JSON files.
 
