@@ -1,6 +1,6 @@
 test:
     override:
-      - ./node_modules/.bin/istanbul cover --report lcovonly --print none -x **/test-helpers/** ./node_modules/.bin/_mocha -- -R xunit > ./tests.xml
+      - ./node_modules/.bin/istanbul cover --report lcovonly --print none -x **/test-helpers/** ./node_modules/.bin/_mocha -- -R mocha-junit-reporter --reporter-options mochaFile=$CIRCLE_TEST_REPORTS/mocha/tests.xml
     post:
-      - cp ./tests.xml $CIRCLE_TEST_REPORTS/mocha/test.xml
       - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+      - ./node_modules/.bin/codeclimate-test-reporter < ./coverage/lcov.info
