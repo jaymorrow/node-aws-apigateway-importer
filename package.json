@@ -6,7 +6,7 @@
   "scripts": {
     "mocha": "mocha -G -w",
     "test": "mocha",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags && npm publish"
   },
   "author": "Jay Morrow <jay.m.morrow@gmail.com>",
   "license": "ISC",

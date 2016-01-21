@@ -1,4 +1,5 @@
 .gitignore
+.npmignore
 circle.yml
 test/
 test-helpers/
