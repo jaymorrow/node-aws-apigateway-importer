@@ -4,8 +4,7 @@ var assert = require('assert');
 var ApiImporter = require('../lib');
 var swagger = require('../test-helpers/swagger.json');
 
-var ACCOUNT_ID = process.env.ACCOUNT_ID;
-var swagger = JSON.parse(JSON.stringify(swagger).replace(/{{ACCOUNT_ID}}/g, ACCOUNT_ID));
+swagger = JSON.parse(JSON.stringify(swagger).replace(/{{ACCOUNT_ID}}/g, process.env.ACCOUNT_ID));
 
 describe('AWS Integration:', function () {
   context('Create / Delete', function () {

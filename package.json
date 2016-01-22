@@ -4,7 +4,7 @@
   "description": "API Gateway Swagger Importer",
   "main": "lib/index.js",
   "scripts": {
-    "mocha": "mocha -G -w",
+    "unit": "mocha -G -w -g Helpers",
     "test": "istanbul cover -x **/test-helpers/** _mocha",
     "postversion": "git push && git push --tags && npm publish"
   },
