@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "unit": "mocha -G -w -g Helpers",
+    "integration": "mocha -G -g Integration",
     "test": "istanbul cover -x **/test-helpers/** _mocha",
     "postversion": "git push && git push --tags && npm publish"
   },

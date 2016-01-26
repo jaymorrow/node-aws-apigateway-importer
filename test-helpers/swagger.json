@@ -26,33 +26,12 @@
           "200": {
             "description": "200 response",
             "headers": {}
-          },
-          "400": {
-            "description": "400 response",
-            "headers": {}
-          },
-          "401": {
-            "description": "401 response",
-            "headers": {}
-          },
-          "500": {
-            "description": "500 response",
-            "headers": {}
           }
         },
         "x-amazon-apigateway-integration": {
           "responses": {
             "default": {
               "statusCode": "200"
-            },
-            "400:.*": {
-              "statusCode": "400"
-            },
-            "401:.*": {
-              "statusCode": "401"
-            },
-            "500:.*": {
-              "statusCode": "500"
             }
           },
           "requestTemplates": {
@@ -81,33 +60,12 @@
           "200": {
             "description": "200 response",
             "headers": {}
-          },
-          "400": {
-            "description": "400 response",
-            "headers": {}
-          },
-          "401": {
-            "description": "401 response",
-            "headers": {}
-          },
-          "500": {
-            "description": "500 response",
-            "headers": {}
           }
         },
         "x-amazon-apigateway-integration": {
           "responses": {
             "default": {
               "statusCode": "200"
-            },
-            "400:.*": {
-              "statusCode": "400"
-            },
-            "401:.*": {
-              "statusCode": "401"
-            },
-            "500:.*": {
-              "statusCode": "500"
             }
           },
           "requestTemplates": {
@@ -121,10 +79,13 @@
     },
     "/user": {
       "get": {
-        "consumes": [
-          "application/json"
-        ],
         "parameters": [
+          {
+            "name": "foo",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
           {
             "name": "Authorization",
             "in": "header",
@@ -136,41 +97,28 @@
           "200": {
             "description": "200 response",
             "headers": {}
-          },
-          "400": {
-            "description": "400 response",
-            "headers": {}
-          },
-          "401": {
-            "description": "401 response",
-            "headers": {}
-          },
-          "500": {
-            "description": "500 response",
-            "headers": {}
           }
         },
         "x-amazon-apigateway-integration": {
           "responses": {
             "default": {
-              "statusCode": "200"
-            },
-            "400:.*": {
-              "statusCode": "400"
-            },
-            "401:.*": {
-              "statusCode": "401"
-            },
-            "500:.*": {
-              "statusCode": "500"
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "__passthrough__"
+              }
             }
           },
-          "requestTemplates": {
-            "application/json": "{\n    \"Authorization\": \"$input.params('Authorization')\"\n}"
+          "uri": "https://example.com",
+          "httpMethod": "GET",
+          "cacheNamespace": "w3ytts",
+          "requestParameters": {
+            "integration.request.header.Authorization": "method.request.header.Authorization",
+            "integration.request.querystring.foo": "method.request.querystring.foo"
           },
-          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:{{ACCOUNT_ID}}:function:{{LAMBDA_FUNCTION}}/invocations",
-          "httpMethod": "POST",
-          "type": "aws"
+          "cacheKeyParameters": [
+            "method.input.params.foo"
+          ],
+          "type": "http"
         }
       },
       "post": {
