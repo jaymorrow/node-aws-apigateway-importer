@@ -45,7 +45,7 @@ Reads the swagger json file and prepares the contents for API creation.
 
 ### create(callback)
 
-Creates the API, but does not deploy it to a server. The API name is pulled from `info.title` in the swagger.json file.
+Creates the full API (methods, integrations, etc), but does not deploy it to a server. The API name is pulled from `info.title` in the swagger.json file.
 
 #### Arguments
 1. __callback(err, result)__ (_Function_): Run after creation. 
@@ -59,3 +59,11 @@ The Stage name for the api is pulled from the `basePath` property of the swagger
 #### Arguments
 1. __callback(err, result)__ (_Function_): Run after deployment.
 
+### updateApi(callback)
+
+Deletes all methods and resources on an existing API and recreates it from the Swagger configuration. 
+
+** Even if methods have the same path and signature they will have new resource IDs. This is a destructive operation for everything but the parent API. **
+
+#### Arguments
+1. __callback(err, result)__ (_Function_): Run after creation. 
