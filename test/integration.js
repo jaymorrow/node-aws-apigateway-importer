@@ -42,7 +42,7 @@ describe('AWS Integration:', function () {
 
   context('Existing API', function () {
     var importer = new ApiImporter(swagger, {
-      loglevel: 'debug'
+      loglevel: 'silent'
     });
 
     var idStore;
