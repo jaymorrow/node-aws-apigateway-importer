@@ -13,7 +13,7 @@ describe('AWS Integration:', function () {
     });
 
     it('should create API', function (done) {
-      this.timeout(30000);
+      this.timeout(20000);
 
       importer.create(function (err, actual) {
         if (err) {
@@ -42,13 +42,13 @@ describe('AWS Integration:', function () {
 
   context('Existing API', function () {
     var importer = new ApiImporter(swagger, {
-      loglevel: 'silent'
+      loglevel: 'debug'
     });
 
     var idStore;
 
     before('Create API', function (done) {
-      this.timeout(30000);
+      this.timeout(20000);
       importer.create(function (err) {
         if (err) {
           return done(err);
@@ -159,7 +159,7 @@ describe('AWS Integration:', function () {
     });
 
     before('Create API', function (done) {
-      this.timeout(30000);
+      this.timeout(20000);
       importer.create(done);
     });
 
@@ -168,6 +168,7 @@ describe('AWS Integration:', function () {
     });
 
     it('should successfully create stage', function (done) {
+      this.timeout(3000);
       importer.deploy(function (err, actual) {
         if (err) {
           return done(err);
@@ -179,6 +180,7 @@ describe('AWS Integration:', function () {
     });
 
     it('should deploy into an existing stage', function (done) {
+      this.timeout(3000);
       importer.deploy(function (err, actual) {
         if (err) {
           return done(err);
@@ -196,7 +198,7 @@ describe('AWS Integration:', function () {
     });
 
     before('Create API', function (done) {
-      this.timeout(30000);
+      this.timeout(20000);
       importer.create(done);
     });
 
@@ -205,7 +207,7 @@ describe('AWS Integration:', function () {
     });
 
     it('should replace all resources', function (done) {
-      this.timeout(30000);
+      this.timeout(20000);
 
       importer.updateApi(function (err) {
         if (err) {
