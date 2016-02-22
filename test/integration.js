@@ -12,7 +12,7 @@ describe('AWS Integration:', function () {
       loglevel: 'debug'
     });
 
-    it.only('should create API', function (done) {
+    it('should create API', function (done) {
       this.timeout(20000);
 
       importer.create(function (err, actual) {
