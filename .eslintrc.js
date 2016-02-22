@@ -3,12 +3,7 @@
 
 module.exports = {
   'env': {
-    'browser': true,
-    'commonjs': true
-  },
-  'globals': {
-    '__VERSION__': true,
-    '__BUILD__': true
+    'node': true
   },
   'rules': {
     // LEGACY -- REMOVE WHEN CODE CLIMATE UPGRADES
