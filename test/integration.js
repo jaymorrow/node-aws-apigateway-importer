@@ -9,10 +9,10 @@ swagger = JSON.parse(JSON.stringify(swagger).replace(/{{ACCOUNT_ID}}/g, process.
 describe('AWS Integration:', function () {
   context('Create / Delete API', function () {
     var importer = new ApiImporter(swagger, {
-      loglevel: 'silent'
+      loglevel: 'debug'
     });
 
-    it('should create API', function (done) {
+    it.only('should create API', function (done) {
       this.timeout(20000);
 
       importer.create(function (err, actual) {
