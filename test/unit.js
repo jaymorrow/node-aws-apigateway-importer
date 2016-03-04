@@ -53,6 +53,7 @@ describe('Helpers', function () {
 
       it('should match "user.paths[\'{id}\'].paths"', function () {
         var path = user.paths['{id}'].paths;
+
         assert.ok(path);
         assert.equal(typeof path, 'object');
         assert.equal(Object.keys(path).length, 1);
